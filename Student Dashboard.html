@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Student Management</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: #f4f6f9;
+      margin: 40px;
+    }
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+    .form-section {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    input, select, button {
+      padding: 8px 12px;
+      margin: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      background: #0078d7;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #005a9e;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      background: white;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    th, td {
+      padding: 12px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background: #0078d7;
+      color: white;
+    }
+    tr:hover {
+      background: #f1f1f1;
+    }
+    .delete-btn {
+      background: #d9534f;
+      color: white;
+      border: none;
+      padding: 6px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .delete-btn:hover {
+      background: #b52b27;
+    }
+    .no-record {
+      text-align: center;
+      color: red;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+    .count {
+      margin-top: 15px;
+      font-weight: bold;
+      text-align: right;
+    }
+  </style>
+</head>
+<body>
+  <h2>Student Management System</h2>
+
+  <!-- Add Student Form -->
+  <div class="form-section">
+    <input type="text" id="studentName" placeholder="Enter student name">
+    <select id="studentBranch">
+      <option value="CSE">CSE</option>
+      <option value="DS">DS</option>
+      <option value="IT">IT</option>
+      <option value="ECE">ECE</option>
+    </select>
+    <button onclick="addStudent()">Add Student</button>
+    <br>
+    <input type="text" id="searchName" placeholder="Search by name" onkeyup="searchStudent()">
+    <select id="filterBranch" onchange="filterByBranch()">
+      <option value="All">All Branches</option>
+      <option value="CSE">CSE</option>
+      <option value="DS">DS</option>
+      <option value="IT">IT</option>
+      <option value="ECE">ECE</option>
+    </select>
+  </div>
+
+  <!-- Student Table -->
+  <table id="studentTable">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Branch</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="studentList"></tbody>
+  </table>
+
+  <!-- No Record -->
+  <div id="noRecord" class="no-record" style="display:none;">No record found</div>
+
+  <!-- Total Count -->
+  <p class="count">Total Students: <span id="totalCount">0</span></p>
+
+  <script>
+    let students = [];
+
+    function renderList(filtered = students) {
+      const list = document.getElementById("studentList");
+      const noRecord = document.getElementById("noRecord");
+      list.innerHTML = "";
+
+      if (filtered.length === 0) {
+        noRecord.style.display = "block";
+      } else {
+        noRecord.style.display = "none";
+        filtered.forEach((student, index) => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td>${student.name}</td>
+            <td>${student.branch}</td>
+            <td><button class="delete-btn" onclick="deleteStudent(${index})">Delete</button></td>
+          `;
+          list.appendChild(row);
+        });
+      }
+
+      document.getElementById("totalCount").textContent = students.length;
+    }
+
+    function addStudent() {
+      const name = document.getElementById("studentName").value.trim();
+      const branch = document.getElementById("studentBranch").value;
+      if (name) {
+        students.push({ name, branch });
+        document.getElementById("studentName").value = "";
+        renderList();
+      }
+    }
+
+    function deleteStudent(index) {
+      students.splice(index, 1);
+      renderList();
+    }
+
+    function searchStudent() {
+      const query = document.getElementById("searchName").value.toLowerCase();
+      const filtered = students.filter(s => s.name.toLowerCase().includes(query));
+      renderList(filtered);
+    }
+
+    function filterByBranch() {
+      const branch = document.getElementById("filterBranch").value;
+      let filtered = students;
+      if (branch !== "All") {
+        filtered = students.filter(s => s.branch === branch);
+      }
+      renderList(filtered);
+    }
+  </script>
+</body>
+</html>
