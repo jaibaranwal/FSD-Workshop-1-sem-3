@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <script>
+        do{
+        let a = Number(prompt("Enter first number:"));
+        let b = Number(prompt("Enter second number:"));
+        let choice = prompt("Enter your choice (1.+ ; 2.- ; 3./ ; 4.*) : ");
+
+        switch(choice){
+            case "1":
+                alert("Sum is " + (a + b));
+                break;
+            case "2":
+                alert("Subtraction is " + (a - b));
+                break;
+            case "3":
+                alert("Division is " + (a / b));
+                break;
+            case "4":
+                alert("Product is " + (a * b));
+                break;
+            default:
+                alert("Enter valid choice");
+                break;
+        }
+        }
+        while(confirm("do you want to calculate again!"))
+    </script>
+</head>
+<body>
+</body>
+</html>
