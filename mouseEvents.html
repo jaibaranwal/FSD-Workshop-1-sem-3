@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mouse Events Example</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 30px;
+    }
+    .event-box {
+      width: 200px;
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #333;
+      border-radius: 10px;
+      background: #fff;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      cursor: pointer;
+      transition: transform 0.2s, background 0.2s;
+    }
+    .event-box:hover {
+      background: #e0f7fa;
+      transform: scale(1.05);
+    }
+  </style>
+  <script>
+    function eventcall(msg){
+      alert(msg);
+    }
+  </script>
+</head>
+<body>
+  <div class="event-box" onclick="eventcall('This is onclick event')">Onclick</div>
+  <div class="event-box" ondblclick="eventcall('This is ondblclick event')">Ondblclick</div>
+  <div class="event-box" onmousedown="eventcall('This is onmousedown event')">Onmousedown</div>
+  <div class="event-box" onmouseup="eventcall('This is onmouseup event')">Onmouseup</div>
+  <div class="event-box" onmouseover="eventcall('This is onmouseover event')">Onmouseover</div>
+  <div class="event-box" onmouseout="eventcall('This is onmouseout event')">Onmouseout</div>
+  <div class="event-box" onmousemove="eventcall('This is onmousemove event')">Onmousemove</div>
+</body>
+</html>
